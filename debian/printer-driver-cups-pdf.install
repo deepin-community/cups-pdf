@@ -1,0 +1,5 @@
+debian/*.ppd-updater	usr/share/cups/ppd-updaters
+debian/*.py		usr/share/apport/package-hooks
+extra/*.conf		etc/cups
+extra/*.ppd		usr/share/ppd/cups-pdf
+src/cups-pdf		usr/lib/cups/backend

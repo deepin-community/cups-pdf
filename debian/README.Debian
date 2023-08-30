@@ -1,0 +1,53 @@
+CUPS-PDF for Debian
+-------------------
+This Debian package of CUPS-PDF is configured as follow:
+
+ * Log files are created by group "lpadmin" to match CUPS permissions.
+ * Anonymous Samba output to </var/spool/cups-pdf/ANONYMOUS/> directory.
+ * Standard user output to <${HOME}/PDF/> directory.
+
+The settings are fully configurable by editing </etc/cups/cups-pdf.conf>
+using the system administrator's favorite text editor.
+
+   CAVEAT
+
+   AppArmor prevents outputting PDF documents to non-default directories
+   so </etc/apparmor.d/usr.sbin.cupsd> must also be edited, whenever the
+   above defaults get changed in </etc/cups/cups-pdf.conf>.
+
+   In cases where the system mounts home directories from paths other
+   than </home/${USER}>, edit </etc/apparmor.d/tunables/home> instead.
+
+   AppArmor issues appear in 'dmesg' in a format similar to this:
+
+   audit[11578]: AVC apparmor="DENIED" operation="mknod" 
+   profile="/usr/lib/cups/backend/cups-pdf"
+   name="/home/username/unexpectedpath/document.pdf"
+   pid=11578 comm="gs" requested_mask="c" denied_mask="c"
+   fsuid=1000 ouid=1000
+
+The optional GTK package <system-config-printer> is capable of detecting
+this CUPS backend as a suitable ready-to-use printer.
+
+NOTES
+
+ * Follow these instructions for debugging and reporting printing issues:
+   <https://wiki.ubuntu.com/DebuggingPrintingProblems>
+
+ * CUPS-PDF.PPD is the only recognized backend since 2.4.7 and this is a
+   feature intended to reduce confusion for the end-user. If you require
+   paper sizes not supported by CUPS-PDF.PPD, please file a bug report.
+
+ * This package is never affected by Poppler or XPDF bugs; only external
+   tools used to generate the PDF might be. Therefore, avoid filing bugs
+   related to those codebases against CUPS-PDF.
+
+ * No upgrade of the PDF queue from previous releases is ever attempted.
+   If necessary, issue the following command to manually do this:
+
+   sudo lpadmin -p PDF -o pdftops-renderer-default=pdftocairo"
+
+   The above reconfigures the queue named PDF to use the Cairo backend.
+   See Debian Bug #928738 for details.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 27 Sep 2021 14:21:01 +0300
