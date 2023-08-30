@@ -1,0 +1,2 @@
+01_debian_changes_to_cups-pdf_conf.patch
+02_remove-deprecated-ghostscript-setpdfwrite-operator.patch

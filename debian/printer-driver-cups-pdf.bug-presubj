@@ -1,0 +1,3 @@
+Please note that CUPS-PDF is never affected by Poppler or XPDF bugs;
+only external tools that it uses to generate the PDF are. Therefore,
+avoid filing bugs related to those codebases against CUPS-PDF.

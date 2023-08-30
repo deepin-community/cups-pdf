@@ -1,5 +1,1187 @@
-template-repository (1.0-1) unstable; urgency=medium
+cups-pdf (3.0.1-14) unstable; urgency=medium
 
-  * Initial release
+  * [patches]
+    = Refreshed.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 31 Oct 2021 08:42:50 +0200
+
+cups-pdf (3.0.1-13) unstable; urgency=medium
+
+  * [patches]
+    = 02_remove-deprecated-ghostscript-setpdfwrite-operator.patch
+      Replaced by more complete patch from Gentoo.
+      Forwarded it upstream.
+  * [rules]
+    = Flipped the compiler options.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 02 Oct 2021 09:52:02 +0300
+
+cups-pdf (3.0.1-12) unstable; urgency=medium
+
+  * Merged patch from Arch Linux (Closes: #990210):
+    + 02_remove-deprecated-ghostscript-setpdfwrite-operator.patch
+      Thanks to Andre Heider for finding this fix.
+  * [README.Debian]
+    + Specified how to manually upgrade from old releases (Closes: #928738).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 27 Sep 2021 14:23:08 +0300
+
+cups-pdf (3.0.1-11) unstable; urgency=medium
+
+   * [control]
+     = Migrated the Homepage field to a secure URL.
+     = Bumped Standards-Version to 4.6.0.1 (no change required).
+   * [copyright]
+     + Set the Upstream-Contact field.
+     + Set the Upstream-Name field.
+   * [cups-pdf.maintscript]
+     - Removed obsolete maintscript.
+       We haven't shipped a transitory cups-pdf package in ages.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 20 Sep 2021 10:50:30 +0300
+
+cups-pdf (3.0.1-10) unstable; urgency=medium
+
+  * [compat]
+    - Removed.
+  * [control]
+    - Build-Depends: debhelper (>= 13)
+    + Build-Depends: debhelper-compat (= 13)
+    + Rules-Requires-Root: no
+    = Bumped Standards-Version to 4.5.1 (no change required).
+      Caveat: CUPS still expects to find its executables in /usr/lib,
+              instead of the /usr/libexec mandated by FHS 3.0.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 04 Sep 2021 14:27:58 +0300
+
+cups-pdf (3.0.1-9) unstable; urgency=medium
+
+  * [control]
+    + Copied the warning about AppArmor from README so that Debian derivatives
+      that don't ship </usr/share/doc/> don't leave their users in limbo.
+  * [rules]
+    - Commented out DEB_BUILD_MAINT_OPTIONS. Assume that Debian defaults work.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 02 Jan 2021 10:57:39 +0200
+
+cups-pdf (3.0.1-8) unstable; urgency=medium
+
+  * [rules]
+    +Explicitly disabled bindnow in DEB_BUILD_MAINT_OPTIONS.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 15 Dec 2020 20:36:28 +0200
+
+cups-pdf (3.0.1-7) unstable; urgency=medium
+
+  * [rules]
+    + export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+  * [compat],[control]
+    = Bumped debhelper to version 12.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 09 Dec 2020 21:29:04 +0200
+
+cups-pdf (3.0.1-6) unstable; urgency=medium
+
+  * [README.Debian]
+    = Changed UBUNTU to AppArmor for the caveat about configuration.
+  * [patches]
+    - Dropped 02_ubuntu_changes_to_cups-pdf_conf.patch
+    = Updated 01_debian_changes_to_cups-pdf_conf.patch
+      Changed note about Output path configuration to reflect that
+      this affects all systems that have AppArmor installed.
+  * [copyright]
+    = Updated the copyright year for Debian packaging.
+    = Updated the URL to use HTTPS transport.
+  * [watch]
+    = Updated the URL to use HTTPS transport.
+  * [compat],[control]
+    = Bumped debhelper to version 10.
+  * [control]
+    = Bumped Standards-Version to 4.4.0 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 18 Sep 2019 11:09:02 +0300
+
+cups-pdf (3.0.1-5) unstable; urgency=medium
+
+  * Removed [examples]: upstream no longer ships contrib (see 3.0.1-1).
+  * Fixed the following Lintian warnings:
+    W: global-files-wildcard-not-first-paragraph-in-dep5-copyright
+    W: maintainer-script-should-not-use-recursive-chown-or-chmod
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 17 Feb 2018 13:20:04 +0200
+
+cups-pdf (3.0.1-4) unstable; urgency=medium
+
+  [ Tiago Stürmer Daitx ]
+  * [rules]
+    = Move cups library to the end to adhere to the standard POSIX-required
+      behavior and avoid undefined references (Closes: #857500, LP: #1672101)
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 12 Mar 2017 00:11:00 +0000
+
+cups-pdf (3.0.1-3) unstable; urgency=medium
+
+  * [control]
+    + Emphasize that desktop users might prefer GTK+/QT's Print to PDF feature
+      or LibreOffice's Export to PDF feature (Closes: #857165).
+    - Suggests: system-config-printer-gnome | system-config-printer-kde
+      Ubuntu no longer ships -gnome and -kde appears unmaintained.
+  * [postinst]
+    + -o pdftops-renderer-default=pdftocairo (Closes: #658004,#813618,#847462)
+      Thanks to Brian Potkin for suggesting this solution in #847462.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Thu, 09 Mar 2017 13:40:21 +0000
+
+cups-pdf (3.0.1-2) unstable; urgency=medium
+
+  * [watch]
+    - pgpmode=auto
+      Upstream doesn't publish any GPG signed release.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 28 Feb 2017 06:59:47 +0000
+
+cups-pdf (3.0.1-1) unstable; urgency=medium
+
+  * New upstream release (Closes: #503928) implements support for lpoptions.
+    - [control]
+      Dropped transitional cups-pdf package.
+    = [copyright]
+      Updated upstream and myself to year 2017.
+    - [copyright]
+      As per 3.0.beta2 ChangeLog entry:
+      "Removed contrib/ directory from tarball (now on WWW)"
+    = [printer-driver-cups-pdf.postint]
+      Migrated PPD name from CUPS-PDF.ppd to CUPS-PDF_opt.ppd.
+    + [rules]
+      Added -lcups to compiler options.
+    - [rules]
+      Removed override_dh_installdocs.
+    + Build-Depends: libcups2-dev
+    - Dropped obsolete patches:
+      fix_wunusedresult_on_recent_gcc.patch
+      truncate_title_to_first_newline.patch
+      update_upstreams_e-mail_address.patch
+    = Refreshed patches:
+      debian_changes_to_cups-pdf_conf.patch
+      ubuntu_changes_to_cups-pdf_conf.patch
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 25 Feb 2017 12:16:20 +0000
+
+cups-pdf (2.6.1-22) unstable; urgency=medium
+
+  * Fix "cups-pdf FTCBFS: uses build architecture compiler" (Closes: #843910)
+    + Added [debian/rules] fragment:
+      export CC := $(shell dpkg-architecture --query DEB_HOST_GNU_TYPE)-gcc
+    = Thanks to Helmut Grohne for the alternate patch.
+  * Updated the Copyright years in [debian/rules] and [debian/copyright].
+  * Bumped Standards-Version to 3.9.8 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 16 Nov 2016 16:37:40 +0200
+
+cups-pdf (2.6.1-21) unstable; urgency=medium
+
+  * Fixed Lintian "W: spelling-error-in-readme-debian: debuging debugging"
+  * Bumped Standards-Version to 3.9.7 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 23 Feb 2016 15:17:49 +0200
+
+cups-pdf (2.6.1-20) unstable; urgency=medium
+
+  * Fixed "Syntax error in printer-driver-cups-pdf.postint" (Closes: #785049).
+    Thanks to Jason Rhinelander for the bug report and the solution.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 12 May 2015 18:00:38 +0300
+
+cups-pdf (2.6.1-19) unstable; urgency=medium
+
+  * Bumped debhelper compat to 9.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 06 May 2015 16:35:16 +0300
+
+cups-pdf (2.6.1-18) unstable; urgency=medium
+
+  * Bumped debhelper compat to 8.
+  * debian/printer-driver-cups-pdf.[postinst|prerm|postrm]:
+    = Harmonize CUPS automation as much as possible between all three scripts.
+  * debian/printer-driver-cups-pdf.postinst:
+    + Skip automated creation of PDF queue if /run/cups/certs/ doesn't exist.
+      This restores installability inside a chroot (Closes: #539156,#614713).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 06 May 2015 14:29:03 +0300
+
+cups-pdf (2.6.1-17) unstable; urgency=medium
+
+  * debian/copyright:
+    Fixed Lintian "W: dep5-copyright-license-name-not-unique"
+    + Added a separate License paragraph to define the GPL 2+
+    - Removed individual License definitions from each block.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 11 Mar 2015 23:13:21 +0200
+
+cups-pdf (2.6.1-16) unstable; urgency=medium
+
+  * Merged changelog entry for 2.6.1-14.1. Thanks, Jonathan Wiltshire.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Fri, 30 Jan 2015 09:30:21 +0200
+
+cups-pdf (2.6.1-15) unstable; urgency=medium
+
+  * debian/cups-pdf.maintscript:
+    + New file. Handles dir_to_symlink for 2.6.1-10 (Closes: #774918).
+  * debian/control:
+    + cups-pdf: Pre-Depends: ${misc:Pre-Depends}; for dir_to_symlink.
+    = cups-pdf: Arch: all to any; dh_installdocs: WARNING: --link-doc
+                between architecture all and not all packages breaks binNMUs
+    = Migrated Maintainers to <debian-printing@lists.debian.org>
+  * debian/copyright:
+    + Updated upstream's e-mail address as requested by Volker Behr himself.
+  * debian/patches:
+    + 05_update_upstreams_e-mail_address.patch: update upstream's README too.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 17 Jan 2015 20:17:41 +0200
+
+cups-pdf (2.6.1-14.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Properly handle conversion of /usr/share/doc/cups-pdf
+    to a symlink (Closes: #774918)
+
+ -- Jonathan Wiltshire <jmw@debian.org>  Sat, 17 Jan 2015 13:42:06 +0000
+
+cups-pdf (2.6.1-14) unstable; urgency=medium
+
+  * debian/rules:
+    = Shuffled the order of override_dh_auto_build-arch compiler options
+      to match the third debian/rules example in dpkg-buildflags(1).
+      TODO: remove all manual dpkg-buildflags invocations once everyone's
+            stable/LTS releases have dpkg (>= 1.16.1) and dh9.
+               Wheezy: 1.16.15 and dh8
+                Lucid: 1.15.5  and dh7 (EOL: April 2015)
+              Precise: 1.16.1  and dh9
+  * Bumped Standards-Version to 3.9.6 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Fri, 10 Oct 2014 03:44:24 +0300
+
+cups-pdf (2.6.1-13) unstable; urgency=medium
+
+  * Merged patch by Jani Uusitalo to document AppArmor caveats (LP: #1166786).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 21 Sep 2014 00:26:13 +0300
+
+cups-pdf (2.6.1-12) unstable; urgency=medium
+
+  * debian/rules:
+    = Reverted to dpkg-buildflags to fetch CPPFLAGS, CFLAGS, LDFLAGS
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 14 Sep 2014 13:29:07 +0300
+
+cups-pdf (2.6.1-11) unstable; urgency=medium
+
+  * printer-driver-cups-pdf:
+    + Provides/Replaces: cups-pdf
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 08 Sep 2014 20:41:38 +0300
+
+cups-pdf (2.6.1-10) unstable; urgency=medium
+
+  * Build-Depends:
+    - dpkg-dev (>= 1.14.17~); Debian/Squeeze and Ubuntu/Lucid have 1.15.
+    + debhelper: (>= 7.0~); Debian/Squeeze has 8 and Ubuntu/Lucid has 7.
+  * Migrated to debhelper-7 build system:
+    + Simplified [debian/rules] to use a single dh command with overrides.
+    + Dropped the Build-Depends on CDBS.
+  * Transitioned the package's namespace to printer-driver-*:
+    = cups-pdf: transformed into a dummy transitional package.
+    + printer-driver-cups-pdf: binary target added.
+  * Bumped Standards-Version to 3.9.5 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 08 Sep 2014 19:22:15 +0300
+
+cups-pdf (2.6.1-9) unstable; urgency=low
+
+  * debian/watch:
+    + Adopted more versatile regex matching to cope with odd version numbers.
+      Thanks to Bart Martens for the new recipe and to PTS for informing me.
+  * Bumped Standards-Version to 3.9.4 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 28 Apr 2013 13:42:48 +0300
+
+cups-pdf (2.6.1-8) unstable; urgency=low
+
+  * Merged patches by Remi Collet:
+    + 02_fix_wunusedresult_on_recent_gcc.patch
+    + 03_truncate_title_to_first_newline.patch
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 19 Mar 2013 16:52:44 +0200
+
+cups-pdf (2.6.1-7) unstable; urgency=low
+
+  * Fixed Lintian messages:
+    - W: syntax-error-in-dep5-copyright line 24: Duplicate field copyright.
+    - W: hardening-no-fortify-functions usr/lib/cups/backend/cups-pdf
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 21 Aug 2012 18:08:32 +0300
+
+cups-pdf (2.6.1-6) unstable; urgency=low
+
+  * debian/copyright:
+    = Migrated to DEP-5 format.
+  * debian/README.Debian:
+    = Replaced reference to obsolete gnome-cups-manager with
+      system-config-printer (LP: #946170).
+  * Bumped Standards-Version to 3.9.3 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 02 Apr 2012 01:11:33 +0300
+
+cups-pdf (2.6.1-5) unstable; urgency=low
+
+  * debian/README.Debian:
+    + Added URL <https://wiki.ubuntu.com/DebuggingPrintingProblems> to
+      provide a useful methodology for debuging CUPS printing issues.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 10 Dec 2011 12:46:23 +0200
+
+cups-pdf (2.6.1-4) unstable; urgency=low
+
+  * Migrated to source format 3.0 (quilt).
+    + [debian/control]: Build-Depends on dpkg-dev (>= 1.14.17~).
+    - [debian/control]: drop the Build-Depends on quilt.
+    - [debian/rules]: drop the patchsys-quilt.mk CDBS include.
+    - [debian/README.source]: deleted.
+  * Enabled non-ASCII filenames via the DecodeHexStrings option (LP: #432736).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 29 Nov 2011 09:55:58 +0200
+
+cups-pdf (2.6.1-3) unstable; urgency=low
+
+  * Updated [README.Debian] with current AppArmor information. (LP: #879172).
+  * Deleted obsolete [debian/NEWS].
+  * Removed unused /usr/share/cdbs/1/rules/utils.mk include. Upstream doesn't
+    ship a Makefile so common-binary-post-install-arch::list-missing wouldn't
+    be able to know if we unintentionally missed anything.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Fri, 21 Oct 2011 13:02:09 +0300
+
+cups-pdf (2.6.1-2) unstable; urgency=low
+
+  * Renamed old maintainer scripts for debhelper consistency:
+    + source_cups-pdf.py to cups-pdf.py
+    + presubj to cups-pdf.bug-presubj
+    + ppd-updater to cups-pdf.ppd-updater
+  * Stripped the unnecessary shellbang from ppd-updater as well.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Fri, 21 Oct 2011 11:32:55 +0300
+
+cups-pdf (2.6.1-1) unstable; urgency=low
+
+  * New upstream release:
+    + Updated [debian/copyright] based on new information from contrib/Contents.
+    + Dropped 02_debian_bug_644218.patch (merged).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 04 Oct 2011 20:30:00 +0300
+
+cups-pdf (2.6.0-2) unstable; urgency=low
+
+  * Patched "cups-pdf.conf shipped with invalid content" (Closes: #644218)
+  * Upgraded [debian/copyright] to match Lintian's more pointy parsing:
+    + Migrated all ASCII (C) to proper Unicode © copyright marks.
+    + Added Debian contributions by Till Kamppeter and myself.
+    + Precised the contribution year for [contrib/*] authors.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 04 Oct 2011 10:58:49 +0300
+
+cups-pdf (2.6.0-1) unstable; urgency=low
+
+  * New upstream release:
+    + Dropped 60_Debian_623743.patch (merged).
+  * [debian/copyright]:
+    + Added missing information about [contrib/*] authors' names (year unknown).
+      Thanks to Bart Martens for reminding me of this.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 02 Oct 2011 10:30:55 +0300
+
+cups-pdf (2.5.1-8) unstable; urgency=low
+
+  * [postinst|prerm|postrm]:
+    + Cleaned up the syntax of 2.5.1-7 additions.
+    + Rephrased and normalized the comments.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 28 Sep 2011 13:50:38 +0300
+
+cups-pdf (2.5.1-7) unstable; urgency=low
+
+  * [postinst|prerm|postrm]:
+    + Appended "2>/dev/null" onto 2.5.1-5 additions.
+      Thanks to Till Kamppeter for this suggestion.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Fri, 23 Sep 2011 15:54:52 +0300
+
+cups-pdf (2.5.1-6) unstable; urgency=low
+
+  * Corrected DRIVER_REGEXP value for automated PPD updating. (LP: #836278)
+    Thanks to Till Kamppeter for spotting this!
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 14 Sep 2011 18:39:09 +0300
+
+cups-pdf (2.5.1-5) unstable; urgency=low
+
+  * Modified the force-reload loop in [postinst|prerm|postrm] to end with ||:
+    rather than with ||true for consistency with other maintainer commands.
+  * Added a wait loop in [postinst|prerm|postrm] to ensure that CUPS reloaded.
+  * Added 'cupsenable' and 'cupsaccept' steps in [postinst] to ensure that
+    the PDF queue is up and running before we can manipulate it. (LP: #805947)
+  * Added 'cupsdisable' and 'cupsreject' steps in [prerm|postrm] to match.
+  * Refreshed all patches using the .quiltrc from Chapter 3.1 of the NM Guide.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 13 Sep 2011 16:15:49 +0300
+
+cups-pdf (2.5.1-4) unstable; urgency=low
+
+  * Migrated CDBS patch management from simple-patchsys.mk to patchsys-quilt.mk.
+    + Adopted the short README.source from "Quilt for Debian Maintainers" as-is.
+    + Added a Build-Depends on quilt.
+  * Added to [debian/patches]:
+    60_Debian_623743.patch "support supplementary groups" (Closes: #623743).
+  * Updated [debian/copyright] to reflect recent upstream contributions.
+  * Implemented automated PPD upgrading for CUPS (>= 1.5.0-3). Backports
+    will simply ignore this script; no Depends version required.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Mon, 29 Aug 2011 21:16:05 +0300
+
+cups-pdf (2.5.1-3) unstable; urgency=low
+
+  * Remove the superfluous -E option to the queue creation loop. This was
+    unnecessary to access the localhost plus it sometimes makes automated
+    installs fail. (Closes: #614713,#539156).
+    Many thanks to Daniel Reichelt for finding this long-standing issue!
+  * Bumped Standards-Version to 3.9.2 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sun, 24 Apr 2011 13:21:19 +0300
+
+cups-pdf (2.5.1-2) unstable; urgency=low
+
+  * Refreshed our config patch to reduce the diff with upstream to a minimum.
+  * Implemented a CUPS queue purging loop in [postrm] to remove all traces of
+    CUPS-PDF in the CUPS configuration after a package purge. (LP: #573667)
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Wed, 16 Mar 2011 17:18:00 +0200
+
+cups-pdf (2.5.1-1) unstable; urgency=low
+
+  * New upstream release.
+    + Dropped 60_cups-pdf_remove-contrib-SELinux-HOWTO-bashisms.patch (merged)
+  * Dropped 70_cups-pdf_support-pdf-workflow.patch
+    + This patch has received more criticism than praises from the end-users,
+      because it enssentially renders the Ghostscript options in cups-pdf.conf
+      useless, plus it no longer applies cleanly to the upstream code.
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Sat, 19 Feb 2011 02:09:34 +0200
+
+cups-pdf (2.5.0-17) unstable; urgency=low
+
+  * Updated my contact info in [debian/control|debian/copyright] files.
+  * Fixed "please compile with large file support" (Closes: #604930).
+  * Bumped Standards-Version to 3.9.1 (no change required).
+
+ -- Martin-Éric Racine <martin-eric.racine@iki.fi>  Tue, 04 Jan 2011 12:10:35 +0200
+
+cups-pdf (2.5.0-16) unstable; urgency=low
+
+  * Revert permission fix from 2.5.0-15. Let CUPS handle this by itself.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 18 Jun 2010 14:17:30 +0300
+
+cups-pdf (2.5.0-15) unstable; urgency=low
+
+  * Changed ownership of /var/spool/cups-pdf/ANONYMOUS from nobody:nogroup
+    to root:lpadmin (Closes: #582441).
+  * Fix the permissions of /usr/lib/cups/backend to 0700 (LP: #580837).
+    FIXME: this directory's permissions really should be fixed by CUPS.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 27 May 2010 07:57:15 +0300
+
+cups-pdf (2.5.0-14) unstable; urgency=low
+
+  * Removed all obsolete build-dependency and dependency versioning.
+    + We don't depend upon specific CDBS features, plus we barely quote
+      debhelper >= 5 to quiet the incitation to upgrade debian/compat.
+    + Debian Lenny implemented migration from CUPSYS to CUPS namespace
+      and Ubuntu implemented it in Intrepid too, so we basically have
+      an artificial versioning as a result of the namespace change.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 18 Apr 2010 13:36:42 +0300
+
+cups-pdf (2.5.0-13) unstable; urgency=low
+
+  * Precised the exact path to the GPL-2 text as suggested by Lintian.
+  * Touched debian/copyright_hints and responded to the hints.
+  * Bumped Standards-Version to 3.8.4 (no change required).
+  * Created debian/source/format.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 15 Apr 2010 13:07:36 +0300
+
+cups-pdf (2.5.0-12) unstable; urgency=low
+
+  * Sanitized ownerships and permissions of all our files via postinst.
+  * Added cruft removal to postinst script.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 15 Nov 2009 11:38:11 +0000
+
+cups-pdf (2.5.0-11) unstable; urgency=low
+
+  * Reverted Pre-Depends:cups change from 1.6.3-3 (LP: #356781).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue, 27 Oct 2009 11:59:22 +0000
+
+cups-pdf (2.5.0-10) unstable; urgency=low
+
+  * Removed 'removing' case from postinst (Closes: #552389).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 26 Oct 2009 08:55:28 +0000
+
+cups-pdf (2.5.0-9) unstable; urgency=low
+
+  * Added explicit creation of /var/log/cups/ to debian/dirs (LP: #441123).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 23 Oct 2009 14:47:32 +0000
+
+cups-pdf (2.5.0-8) unstable; urgency=low
+
+  * Bumped Standards-Version to 3.8.3 (no change required).
+  * Inserted explicit "-h localhost" option to every lpadmin and lpstat
+    invocation in postinst (Closes: #539156).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 03 Sep 2009 22:53:33 +0000
+
+cups-pdf (2.5.0-7) unstable; urgency=low
+
+  * The "Houston, we have a piuparts problem" release:
+    + Reinsterted missing Depends on ghostscript.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 19 Aug 2009 14:23:37 +0300
+
+cups-pdf (2.5.0-6) unstable; urgency=low
+
+  * Inserted lpadmin "enter" in maintainer scripts (Closes: #539156).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 15 Aug 2009 00:07:52 +0300
+
+cups-pdf (2.5.0-5) unstable; urgency=low
+
+  * Dropped explicit Depends on ghostscript since CUPS already does.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 14 Aug 2009 21:51:56 +0300
+
+cups-pdf (2.5.0-4) unstable; urgency=low
+
+  * Merged changes from Ubuntu (Closes: #509518, #510882):
+    + Apport hooks.
+    + Pass PDF files without modification (LP: #385709).
+    + Automatic PDF queue addition (postinst) and removal (prerm).
+    NOT merged: upgrading of existing PDF queues; Depends: perl.
+  * Bumped Standards-Version to 3.8.2 (no change required).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 28 Jun 2009 13:35:39 +0300
+
+cups-pdf (2.5.0-3) unstable; urgency=low
+
+  * The "inching towards automated queue addition/removal" release:
+    + Moved cups/cups-client/libpaper-utils to Pre-Depends since we need
+      those to be preconfigured for CUPS-PDF maintainer scripts to work.
+    + Added a prerm maintainer script.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 04 Jun 2009 09:06:05 +0300
+
+cups-pdf (2.5.0-2) unstable; urgency=low
+
+  * Bumped Standards-Version to 3.8.0:
+    + Moved the upstream URL from Description to Homepage field.
+  * Fixed [debian/copyright] to match GNU boilerplate text.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 20 Apr 2009 01:27:46 +0300
+
+cups-pdf (2.5.0-1) unstable; urgency=low
+
+  * New upstream release:
+    + new option to truncate long filenames (Fixes Ubuntu #237224)
+    + spoolfile is purged on errors (Re: OpenSuSE complaint)
+    + failed chmod() on output is treated as non-fatal (Closes: #496317)
+    + updates and additions to the documentation (Closes: #501719, #502555)
+    + removed additional changelog from source code.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 26 Jan 2009 20:38:49 +0200
+
+cups-pdf (2.4.8-4) unstable; urgency=low
+
+  * Updated README.Debian to reflect the fact that CUPS-PDF.PPD is now
+    the only recognized backend for CUPS-PDF.
+  * Added a warning about AppArmor to README.Debian for Ubuntu users.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 14 Sep 2008 12:18:20 +0300
+
+cups-pdf (2.4.8-3) unstable; urgency=low
+
+  * Added patch to remove Bashisms from contributed third-party SELinux
+    sample scripts (Closes: #489554).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 13 Aug 2008 13:06:13 +0300
+
+cups-pdf (2.4.8-2) unstable; urgency=low
+
+  * The "Brown Bag" release:
+    Migrating to cupsys also requires updating maintainer scripts.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 23 Jun 2008 18:32:20 +0300
+
+cups-pdf (2.4.8-1) unstable; urgency=low
+
+  * New upstream release (Closes: #472631).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 22 Jun 2008 17:13:33 +0300
+
+cups-pdf (2.4.7-4) unstable; urgency=low
+
+  * Dropped references to gs-esp and cupsys in Depends and Recommends,
+    now that the CUPS renaming is done, on time for Lenny.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 20 Jun 2008 20:14:08 +0300
+
+cups-pdf (2.4.7-3) unstable; urgency=low
+
+  * Added alternatives for the upcoming Debian CUPS packages renaming.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 25 May 2008 20:20:27 +0300
+
+cups-pdf (2.4.7-2) unstable; urgency=low
+
+  [ Martin-Éric Racine ]
+  * Merged useful changes from Ubuntu:
+
+    [ Jonathan Riddell ]
+    + Suggests: system-config-printer-gnome | system-config-printer-kde
+
+    [ Till Kamppeter ]
+    + Depends: ghostscript | gs-esp, libpaper-utils, cupsys, cupsys-client
+    + debian/rules: enabled the CDBS simple patching system.
+    + debian/patches/50_default_conf.patch on extra/cups-pdf.conf:
+      Move the default configuration changes into 50_default_conf.patch,
+      so that the diff.gz is now free of upstream diffs.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 06 Apr 2008 12:08:05 +0300
+
+cups-pdf (2.4.7-1) unstable; urgency=low
+
+  * New upstream release:
+    + Implemented IEEE-1284 device ID to make the PPD auto-selectable.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 24 Mar 2008 14:20:04 +0200
+
+cups-pdf (2.4.6-5) unstable; urgency=low
+
+  * Changed homepage and debian/watch to http://www.cups-pdf.de site.
+  * Upgraded Depends to ghostscript | gs-esp (Closes: #455647).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 23 Dec 2007 15:46:31 +0200
+
+cups-pdf (2.4.6-4) unstable; urgency=low
+
+  [ Martin Pitt ]
+  * debian/postinst: Changed /usr/lib/cups/backend/cups-pdf permissions
+    from 4751 (which was still necessary for the non-root CUPS) to 0700
+    (in accordance with upstream requirements).
+  * debian/postinst: Made /var/spool/cups-pdf/ANONYMOUS sticky, since it
+    is world-writeable.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 11 Aug 2007 22:29:33 +0300
+
+cups-pdf (2.4.6-3) unstable; urgency=low
+
+  * Implemented a basic reportbug script to remind people not to file
+    pointless CVE bugs concerning Poppler or XPDF, since we don't use
+    that code; we simply pass the document to external tools that do.
+  * Added the same warning to NEWS.Debian.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed,  8 Aug 2007 01:10:19 +0300
+
+cups-pdf (2.4.6-2) unstable; urgency=low
+
+  * Bumped debhelper Build-Depends to (>= 5).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 15 Jul 2007 18:13:45 +0300
+
+cups-pdf (2.4.6-1) unstable; urgency=low
+
+  * New upstream release:
+    - Changed GS options to save memory on some files (Closes: #421868).
+    - Changed CUPS printer description to CUPS-PDF (Closes: #411620).
+  * Made Debian CUPS Maintainers the Maintainer and myself Uploaders.
+  TODO: automagic installation of PDF printer for granny-friendliness.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 24 May 2007 12:28:22 +0300
+
+cups-pdf (2.4.2-3) unstable; urgency=high
+
+  * Reversed order of chmod and chown in postinst (Closes: #411580).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue, 20 Feb 2007 02:48:36 +0200
+
+cups-pdf (2.4.2-2) unstable; urgency=high
+
+  * Upgraded backend permissions to match Policy 10.9 (Closes: #409356).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 12 Feb 2007 17:45:57 +0200
+
+cups-pdf (2.4.2-1) unstable; urgency=low
+
+  * New upstream maintenance release:
+    - Removed extraneous COPYRIGHT files (make Lintian happy).
+    - Cleaned up over 200 warnings issued by 'splint'.
+    - Renamed PPD v4 to match the single PPD file from the 1.7 codebase.
+    - Removed PPD v3.
+    - Shipped the PPD uncompressed.
+  * Migrated PPD to /usr/share/ppd/cups-pdf directory (Closes: #390141).
+  * Added missing invoke-rc.d reload loop in postrm.
+    Thanks to Roger Leigh for spotting this.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 30 Sep 2006 22:51:33 +0300
+
+cups-pdf (2.4.1-3) unstable; urgency=low
+
+  * Changed the backend permissions to 6755 for Ubuntu compatibility.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 29 Sep 2006 02:26:39 +0300
+
+cups-pdf (2.4.1-2) unstable; urgency=low
+
+  * Changed the backend permissions to 6700 for Ubuntu compatibility.
+    (Launchpad #36093, #42147)
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue, 19 Sep 2006 21:04:58 +0300
+
+cups-pdf (2.4.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upgraded Standards-Version to 3.7.2; no change required.
+  * Upgraded debian/install to anticipate PPD revision numbers.
+  * Added debian/links to always track the latest PPD revision.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 21 Jun 2006 15:47:26 +0300
+
+cups-pdf (2.4.0-2) unstable; urgency=low
+
+  * Fixed: restarting CUPS fails if it's not running (Closes: #372691).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 11 Jun 2006 18:15:41 +0300
+
+cups-pdf (2.4.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Installed contributed documentation as examples.
+  * Fixed backend permissions for CUPS 1.2 (Closes: #371143).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri,  9 Jun 2006 13:46:44 +0300
+
+cups-pdf (2.2.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Document the fact that PPD drivers other than PostscriptColor are
+    not guaranteed to work with CUPS-PDF (Closes: #344872).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 21 Apr 2006 14:18:32 +0300
+
+cups-pdf (2.1.1-1) unstable; urgency=medium
+
+  * New upstream release:
+    (Closes: #361062) thanks to Nickolay Kondrashov for the patch.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri,  7 Apr 2006 06:25:32 +0300
+
+cups-pdf (2.1.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Rewrote long description to reflect configurable output path.
+  * Removed no longer needed preinst maintenance script.
+  * Dropped no longer needed Depends on adduser.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 26 Mar 2006 07:27:01 +0300
+
+cups-pdf (2.0.5-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat,  4 Mar 2006 13:50:18 +0200
+
+cups-pdf (2.0.4-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun,  5 Feb 2006 00:23:06 +0200
+
+cups-pdf (2.0.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat,  7 Jan 2006 18:15:32 +0200
+
+cups-pdf (2.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Uploading to unstable (Closes: #329751).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed,  4 Jan 2006 19:55:40 +0200
+
+cups-pdf (2.0.1-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed,  4 Jan 2006 02:01:26 +0200
+
+cups-pdf (2.0.0-1) experimental; urgency=low
+
+  * New upstream release (Closes: #329751):
+    - Improved PostscriptColor PPD now fully conforms with Adobe specs.
+    - Settings are now fully configurable via /etc/cups/cups-pdf.conf
+      using the administrator's favorite text editor.
+  * Updated README.Debian content to document the new features.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 31 Dec 2005 18:18:43 +0200
+
+cups-pdf (1.7.3-9) unstable; urgency=low
+
+  * Added uupdate action to debian/watch.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 22 Dec 2005 12:55:35 +0200
+
+cups-pdf (1.7.3-8) unstable; urgency=low
+
+  * Added call to list-missing target of utils.mk CDBS include.
+  * Replaced compiler options with langcore.mk CDBS include.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon, 19 Dec 2005 20:26:07 +0200
+
+cups-pdf (1.7.3-7) unstable; urgency=high
+
+  * The "Making all changes really obvious" release (Closes: #331378):
+    - Corrected package description to match current output directory.
+    - Added a debian/NEWS that describes all changes since Sarge.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon,  3 Oct 2005 11:30:08 +0300
+
+cups-pdf (1.7.3-6) unstable; urgency=low
+
+  * Fixed maintainer scripts to correctly shuffle the directories.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 23 Sep 2005 14:42:30 +0300
+
+cups-pdf (1.7.3-5) unstable; urgency=high
+
+  * Changed output directory to $HOME/PDF/ to prevent file clobbering.
+  * Created a "cups-pdf" system user for anonymous Samba printing jobs:
+    - Printouts go to /var/spool/cups-pdf/ANONYMOUS/
+    (Closes: #319353, #325584, #326001, #326034).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 23 Sep 2005 13:36:22 +0300
+
+cups-pdf (1.7.3-4) unstable; urgency=low
+
+  * Changed anonymous output directory to upstream default "ANONYMOUS".
+  * Rewrote README.Debian for better clarity.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 27 Aug 2005 14:25:43 +0300
+
+cups-pdf (1.7.3-3) unstable; urgency=low
+
+  * Corrected 'gs' dependency to non-virtual package 'gs-esp'.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 18 Aug 2005 19:31:12 +0300
+
+cups-pdf (1.7.3-2) unstable; urgency=low
+
+  * Added explicit dependency on virtual package 'gs' (Closes: #323012).
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 14 Aug 2005 19:59:06 +0300
+
+cups-pdf (1.7.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 11 Aug 2005 18:52:00 +0300
+
+cups-pdf (1.7.1-1) unstable; urgency=low
+
+  * New upstream release.
+    - Note about CUPS options to operate under Ubuntu (Closes: #300320).
+    - Note about mounting options for NFS directories (Closes: #307872).
+    See author's README for details.
+  * Changed output path from ~/cups-pdf/ to ~/ as per Ubuntu suggestion.
+  * Updated debian/watch URL.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri,  1 Jul 2005 10:13:31 +0300
+
+cups-pdf (1.7.0a-3) unstable; urgency=low
+
+  * Converted debian/control to debian/control.in for CDBS auto-updating.
+  * Upgraded to Debian Policy 3.6.2 standards; no change required.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun, 19 Jun 2005 12:19:16 +0300
+
+cups-pdf (1.7.0a-2) unstable; urgency=low
+
+  * Moved file installation process from debian/rules to debian/install.
+  * Rewrote the preinst script to handle creation of /var/spool/cups-pdf.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed,  4 May 2005 03:47:43 +0300
+
+cups-pdf (1.7.0a-1) unstable; urgency=low
+
+  * New upstream release.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue,  8 Mar 2005 01:00:36 +0200
+
+cups-pdf (1.7.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun,  6 Mar 2005 15:35:50 +0200
+
+cups-pdf (1.6.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * The "We sing the Postscript electric" release (Closes: #293428):
+
+    - additional PA4 (mixes A4 and Letter) paper description from me.
+    - additional A0-A3 paper descriptions from Sebastian Hegler.
+    - additional A6-A10 paper descriptions from me.
+    - changed PC filename to POSTSCRIPTCOLOR.PPD.
+    - really made A4 the default paper size.
+
+    More paper descriptions could eventually be supported. Please check
+    <http://www.cl.cam.ac.uk/~mgk25/iso-paper.html> and file "wishlist"
+    items into the Debian BTS for package "cups-pdf".
+
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Thu, 10 Feb 2005 10:27:37 +0200
+
+cups-pdf (1.6.5-1) unstable; urgency=medium
+
+  * New upstream release.
+    Definitely closes #286024 with a macro to define the group of new files.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed,  5 Jan 2005 07:24:00 +0200
+
+cups-pdf (1.6.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue,  4 Jan 2005 03:22:14 +0200
+
+cups-pdf (1.6.3-3) unstable; urgency=medium
+
+  * Moved cupsys to Pre-Depends, to ensure that group lpadmin is created
+    before the installation of cups-pdf (Closes: #286024).
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri, 17 Dec 2004 16:13:37 +0200
+
+cups-pdf (1.6.3-2) unstable; urgency=medium
+
+  * Changed preinst script to fix ownership of /var/log/cups/cups-pdf_log
+    to root:lpadmin and permissions to 0600. (Closes: #279251).
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 27 Nov 2004 10:47:34 +0200
+
+cups-pdf (1.6.3-1) unstable; urgency=high
+
+  * New upstream release.
+    Really fixes Ghostscript call to ensure compatibility with complex
+    user directory paths.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Fri,  8 Oct 2004 12:44:27 +0300
+
+cups-pdf (1.6.2-1) unstable; urgency=high
+
+  * New upstream release.
+    Fixes user directory case-sensitivity bug.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue,  5 Oct 2004 20:17:42 +0300
+
+cups-pdf (1.6.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #267950).
+    No longer requires users to have a valid shell defined in /etc/passwd.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun,  3 Oct 2004 14:10:50 +0300
+
+cups-pdf (1.5.2-4) unstable; urgency=high
+
+  * urgency=high because CUPS doesn't update its backend list after cups-pdf
+    is installed, which required adding a postinstall script to restart it.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 25 Aug 2004 14:04:38 +0300
+
+cups-pdf (1.5.2-3) unstable; urgency=high
+
+  * urgency=high because /var/spool/cups-pdf wasn't automatically created,
+    which completely prevented normal operation for some people.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 25 Aug 2004 11:52:38 +0300
+
+cups-pdf (1.5.2-2) unstable; urgency=high
+
+  * urgency=high to provoke a build on architectures that remained jamed
+    during the GCC RC bug this week, which prevented all previous security
+    fixes from the 1.5.x releases from reaching Testing.
+  * Changed preinst script to check if /var/log/cups/cups-pdf_log exists,
+    before trying to secure its permissions (Closes: #265672).
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 14 Aug 2004 20:39:34 +0300
+
+cups-pdf (1.5.2-1) unstable; urgency=high
+
+  * New upstream release.
+  * urgency=high; fixes vulnerability:
+    - insecure creation of spoolfile.
+      Thanks to Florian Zumbiehl <florz@gmx.de> for additional auditing.
+  * Added preinst script that secures /var/log/cups/cups-pdf_log* files.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Wed, 11 Aug 2004 01:06:27 +0300
+
+cups-pdf (1.5.1-1) unstable; urgency=high
+
+  * New upstream release.
+  * urgency=high; fixes several vulnerabilities:
+    - dangerous access to array element (Closes: #262403).
+    - format string vulnerability (#262762) patch merged by upstream.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon,  9 Aug 2004 13:36:22 +0300
+
+cups-pdf (1.5.0-1) unstable; urgency=high
+
+  * New upstream release.
+  * urgency=high; fixes vulnerability:
+    - race condition (Closes: #259993).
+  * Added debian/watch file.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Tue,  3 Aug 2004 20:25:55 +0300
+
+cups-pdf (1.4.3-3) unstable; urgency=high
+
+  * urgency=high; fixes vulnerability:
+    - format string vulnerability (Closes: #262762).
+      Thanks to Florian Zumbiehl <florz@gmx.de> for the patch.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Mon,  2 Aug 2004 13:13:25 +0300
+
+cups-pdf (1.4.3-2) unstable; urgency=low
+
+  * Changed file creation mask to 0027.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun,  1 Aug 2004 21:07:10 +0300
+
+cups-pdf (1.4.3-1) unstable; urgency=high
+
+  * New upstream release.
+  * urgency=high; fixes several vulnerabilities:
+    - insecure Ghostscript invocation (Closes: #262402).
+    - insecure file creation mask (Closes: #262404).
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sun,  1 Aug 2004 13:03:46 +0300
+
+cups-pdf (1.3.1-6) unstable; urgency=low
+
+  * Updated my contact info. No other change.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@iki.fi>  Sat, 26 Jun 2004 14:17:54 +0300
+
+cups-pdf (1.3.1-5) unstable; urgency=low
+
+  * Added NEWS file explaining the situation regarding newer CUPS-PDF releases.
+  * Sanitized the control file into policy compliance.
+  * Added missing shlibs:Depends to control file.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Sun,  4 Apr 2004 20:17:15 +0300
+
+cups-pdf (1.3.1-4) unstable; urgency=low
+
+  * Upgraded all Debian packaging files to UTF-8 compliance.
+  * Sponsored by Kenshi Muto.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Fri,  2 Apr 2004 11:46:45 +0300
+
+cups-pdf (1.3.1-3) unstable; urgency=low
+
+  * First Debian upload - sponsored by Kenshi Muto. Thanks! (Closes: #237028)
+  * Tidied up the documentation and control file.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Mon, 22 Mar 2004 13:51:28 +0200
+
+cups-pdf (1.3.1-2) unstable; urgency=low
+
+  * Upgraded to CDBS.
+  * Replaced Makefile with debian/rules additions.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Thu,  4 Dec 2003 20:13:07 +0200
+
+cups-pdf (1.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Sat, 29 Nov 2003 19:20:33 +0200
+
+cups-pdf (1.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Changelog copied verbatim from cups-pdf.c comments instead of web site.
+  * README.Debian updated to reflect current default settings.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Sun,  2 Nov 2003 03:50:03 +0200
+
+cups-pdf (1.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Created changelog from <http://cip.physik.uni-wuerzburg.de/~vrbehr/cups-pdf/>
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Sun, 26 Oct 2003 13:11:18 +0200
+
+cups-pdf (1.1-3) unstable; urgency=low
+
+  * Cleaned up the debian/control file with even more stringent Lintian rules.
+  * Upgraded Makefile to use debuild.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Wed, 15 Oct 2003 12:29:18 +0300
+
+cups-pdf (1.1-2) unstable; urgency=low
+
+  * Cleaned up the Makefile.
+  * Cleaned up debian directory with Lintian and Linda.
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Mon, 22 Sep 2003 22:47:47 +0300
+
+cups-pdf (1.1-1) unstable; urgency=low
+
+  * First Debian release.
+  * Created Makefile from scratch.
+  * Created README from <http://cip.physik.uni-wuerzburg.de/~vrbehr/cups-pdf/>
+
+ -- Martin-Éric Racine <q-funk@pp.fishpool.fi>  Mon, 22 Sep 2003 16:27:44 +0300

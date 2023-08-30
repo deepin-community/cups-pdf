@@ -1,0 +1,42 @@
+Description: Debian changes to the stock upstream configuration.
+Author: Martin-Éric Racine <martin-eric.racine@iki.fi>
+Forwarded: not-needed
+Index: cups-pdf-3.0.1/extra/cups-pdf.conf
+===================================================================
+--- cups-pdf-3.0.1.orig/extra/cups-pdf.conf
++++ cups-pdf-3.0.1/extra/cups-pdf.conf
+@@ -45,10 +45,14 @@
+ ##     ${HOME} will be expanded to the user's home directory
+ ##     ${USER} will be expanded to the user name
+ ##  in case it is an NFS export make sure it is exported without
+-##  root_squash! 
++##  root_squash!
++##  NOTE: if AppArmor is installed, the AppArmor profile must
++##  be updated to match the output path below, otherwise file
++##  writing will be denied by AppArmor.
++##  See instructions on Ubuntu Launchpad in LP bug #147551.
+ ### Default: /var/spool/cups-pdf/${USER}
+ 
+-#Out /var/spool/cups-pdf/${USER}
++Out ${HOME}/PDF
+ 
+ ### Key: AnonDirName (config)
+ ##  ABSOLUTE path for anonymously created PDF files
+@@ -190,7 +194,7 @@
+ ##  created directories and log files
+ ### Default: lp
+ 
+-#Grp lp
++Grp lpadmin
+ 
+ ### Key: AllowUnsafeOptions (config)
+ ##  DON'T CHANGE THIS SETTING UNLESS YOU ABSOLUTELY KNOW WHAT YOU ARE DOING
+@@ -290,7 +294,7 @@
+ ##  0: disable, 1: enable
+ ### Default: 0
+ 
+-#DecodeHexStrings 0
++DecodeHexStrings 1
+ 
+ ### Key: FixNewlines (config)
+ ##  this option will try to fix various unusal line delimiters (e.g.
